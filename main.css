@@ -1,0 +1,50 @@
+.container {
+    max-width: 960px !important;
+    width: 95% !important;
+}
+
+/* a {
+    color: inherit;
+}
+
+header {
+    background-color: #2979ff;
+    color: #fff;
+}
+
+.container {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 960px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    font-size: 1.125em;
+}
+
+nav > span:first-of-type {
+    margin-right: auto;
+    font-weight: bold;
+    padding-left: 0;
+}
+
+nav > span:last-of-type {
+    padding-right: 0;
+}
+
+nav > span {
+    padding: 1em .5em;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+header h1 {
+    margin: 0;
+    text-align: center;
+    padding: 5em 0;
+    font-size: 3em;
+} */
