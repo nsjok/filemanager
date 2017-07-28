@@ -1,0 +1,42 @@
+---
+layout: default
+---
+
+<article>
+  <header class="hero is-info">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title is-1 is-spaced">{{ page.title | escape }}</h1>
+      </div>
+    </div>
+  </header>
+
+  <div class="section">
+    <div class="container">
+      <div class="columns">
+          <div class="column is-3">
+            <aside class="menu">
+              <p class="menu-label">
+                Documentation
+              </p>
+              <ul class="menu-list">
+                <li>
+                  <a href="{{ site.url }}{{ site.baseurl }}/getting-started/">Getting Started</a>
+                  <ul>
+                    <li><a href="{{ site.url }}{{ site.baseurl }}/getting-started/#quick-start">Quick start</a></li>
+                    <li><a href="{{ site.url }}{{ site.baseurl }}/getting-started/#installation-script">Script</a></li>
+                    <li><a href="{{ site.url }}{{ site.baseurl }}/getting-started/#caddy">Caddy</a></li>
+                    <li><a href="{{ site.url }}{{ site.baseurl }}/getting-started/#docker">Docker</a></li>
+                  </ul>
+                </li>
+                <li><a href="{{ site.url }}{{ site.baseurl }}/configuration/">Configuration</a></li>
+              </ul>
+            </aside>
+          </div>
+          <div class="column content">
+            {{ content }}
+          </div>
+        </div>
+    </div>
+  </div>
+</article>
