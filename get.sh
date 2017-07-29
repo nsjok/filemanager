@@ -4,7 +4,7 @@
 #
 #   GitHub: https://github.com/hacdias/filemanager
 #   Issues: https://github.com/hacdias/filemanager/issues
-#   Requires: bash, mv, rm, tr, type, grep, sed, curl/wget
+#   Requires: bash, mv, rm, tr, type, grep, sed, curl/wget, tar (or unzip on OSX and Windows)
 #
 #   This script installs File Manager to your path.
 #   Usage:
@@ -120,6 +120,7 @@ install_filemanager()
     if setcap_cmd=$(PATH+=$PATH:/sbin type -p setcap); then
         $sudo_cmd $setcap_cmd cap_net_bind_service=+ep "$install_path/$filemanager_bin"
     fi
+    $sudo_cmd rm -- "$PREFIX/tmp/$filemanager_file"
 
     if type -p $filemanager_bin >/dev/null 2>&1; then
         echo "Successfully installed"
