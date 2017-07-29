@@ -46,6 +46,7 @@ install_filemanager()
     #########################
 
     filemanager_bin="filemanager"
+    filemanager_dl_ext=".tar.gz"
 
     # NOTE: `uname -m` is more accurate and universal than `arch`
     # See https://en.wikipedia.org/wiki/Uname
@@ -78,7 +79,8 @@ install_filemanager()
         # Should catch cygwin
         sudo_cmd=""
         filemanager_os="windows"
-        filemanager_dl_ext=".exe"
+        filemanager_bin="filemanager.exe"
+        filemanager_dl_ext=".zip"
     else
         echo "Aborted, unsupported or unknown OS: $uname"
         return 6
@@ -106,7 +108,12 @@ install_filemanager()
         return 7
     fi
 
-    chmod +x "$PREFIX/tmp/$filemanager_bin"
+    echo "Extracting..."
+	case "$filemanager_file" in
+		*.zip)    unzip -o "$PREFIX/tmp/$filemanager_file" "$filemanager_bin" -d "$PREFIX/tmp/" ;;
+		*.tar.gz) tar -xzf "$PREFIX/tmp/$filemanager_file" -C "$PREFIX/tmp/" "$filemanager_bin" ;;
+	esac
+	chmod +x "$PREFIX/tmp/$filemanager_bin"
 
     echo "Putting filemanager in $install_path (may require password)"
     $sudo_cmd mv "$PREFIX/tmp/$filemanager_bin" "$install_path/$filemanager_bin"
