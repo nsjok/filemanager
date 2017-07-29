@@ -97,12 +97,12 @@ install_filemanager()
     echo "$filemanager_url"
 
     # Use $PREFIX for compatibility with Termux on Android
-    rm -rf "$PREFIX/tmp/$filemanager_bin"
+    rm -rf "$PREFIX/tmp/$filemanager_file"
 
     if type -p curl >/dev/null 2>&1; then
-        curl -fsSL "$filemanager_url" -o "$PREFIX/tmp/$filemanager_bin"
+        curl -fsSL "$filemanager_url" -o "$PREFIX/tmp/$filemanager_file"
     elif type -p wget >/dev/null 2>&1; then
-        wget --quiet "$filemanager_url" -O "$PREFIX/tmp/$filemanager_bin"
+        wget --quiet "$filemanager_url" -O "$PREFIX/tmp/$filemanager_file"
     else
         echo "Aborted, could not find curl or wget"
         return 7
