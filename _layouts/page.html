@@ -16,21 +16,28 @@ layout: default
       <div class="columns">
           <div class="column is-3">
             <aside class="menu">
-              <p class="menu-label">
-                Documentation
-              </p>
-              <ul class="menu-list">
-                <li>
-                  <a href="{{ "/getting-started/" | absolute_url }}">Getting Started</a>
-                  <ul>
-                    <li><a href="{{ "/getting-started/#quick-start" | absolute_url }}">Quick start</a></li>
-                    <li><a href="{{ "/getting-started/#installation-script" | absolute_url }}">Script</a></li>
-                    <li><a href="{{ "/getting-started/#caddy" | absolute_url }}">Caddy</a></li>
-                    <li><a href="{{ "/getting-started/#docker" | absolute_url }}">Docker</a></li>
-                  </ul>
-                </li>
-                <li><a href="{{ "/configuration/" | absolute_url }}">Configuration</a></li>
-              </ul>
+              {% if site.docs[0] %}
+                {% for item in site.docs %}
+                  <p class="menu-label">
+                    {{ item.title }}
+                  </p>
+                  {% if item.links[0] %}
+                    <ul class="menu-list">
+                      {% for entry in item.links %}
+                          <li><a {% if page.url == entry.url %}class="is-active"{% endif %} href="{{ entry.url | absolute_url }}">{{ entry.page }}</a>
+                            {% if entry.links[0] %}
+                              <ul>
+                              {% for subentry in entry.links %}
+                                  <li><a href="{{ subentry.url | absolute_url }}">{{ subentry.page }}</a></li>
+                              {% endfor %}
+                              </ul>
+                            {% endif %}
+                          </li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
             </aside>
           </div>
           <div class="column content">

@@ -1,9 +1,3 @@
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-google_analytics: UA-59697241-1
 title: File Manager
 email: hacdias@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
@@ -13,7 +7,25 @@ baseurl: "/filemanager" # the subpath of your site, e.g. /blog
 url: "https://henriquedias.com"
 twitter_username: hacdias
 github_username:  hacdias
+google_analytics: UA-59697241-1
 markdown: kramdown
 kramdown: 
   syntax_highlighter_opts:
     disable : true
+
+docs:
+  - title: Documentation
+    links:
+      - page: Quick Start
+        url: /quick-start/
+      - page: Installation
+        url: /installation/
+        links:
+          - page: One-step Script
+            url: /installation/#one-step-script
+          - page: Caddy
+            url: /installation/#caddy
+          - page: Docker
+            url: /installation/#docker
+      - page: Configuration
+        url: /configuration/

@@ -1,20 +1,12 @@
 ---
 layout: page
-title: Getting Started
-permalink: /getting-started/
+title: Installation
+permalink: /installation/
 ---
 
 There are some different ways you can use to install File Manager on your computer or server. You can choose on the following. After having it installed, take a look at the [configuration](../configuration).
 
-## Quick start
-
-- [Download File Manager](https://github.com/hacdias/filemanager/releases) and put it on your PATH.
-- `cd` to the directory you want to browse in.
-- Run `filemanager`.
-
-Done! It will tell you the address in which File Manager is running. You only need to open it and use `admin` both for the username and the password.
-
-## Installation script
+## One-step Script
 
 If you're running a Linux distribution, macOS or any other platform where `curl` or `wget` commands are available, you can use our special script - made by [Kyle Frost](https://www.kylefrost.me/) - to download the latest version of File Manager and install it on `/user/local/bin`.
 
