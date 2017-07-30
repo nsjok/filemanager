@@ -5,52 +5,59 @@
 #   GitHub: https://github.com/hacdias/filemanager
 #   Issues: https://github.com/hacdias/filemanager/issues
 #
+#   Usage:
+#
+#   	iwr -useb https://henriquedias.com/filemanager/get.ps1 | iex
+#
+#	You should run it as administrator so it can add filemanager to 
+#	the PATH.
+#
 function Install-FileManager {
-    $ErrorActionPreference = "Stop"
+	$ErrorActionPreference = "Stop"
 
-    $resource = "https://api.github.com/repos/hacdias/filemanager/releases/latest"
-    $tag = Invoke-RestMethod -Method Get -Uri $resource | select -Expand tag_name
-    $arch = "386"
+	$resource = "https://api.github.com/repos/hacdias/filemanager/releases/latest"
+	$tag = Invoke-RestMethod -Method Get -Uri $resource | select -Expand tag_name
+	$arch = "386"
 
-    If ((Get-WmiObject Win32_OperatingSystem).OSArchitecture -eq "64-bit") {
-        $arch = "amd64"
-    }
+	If ((Get-WmiObject Win32_OperatingSystem).OSArchitecture -eq "64-bit") {
+		$arch = "amd64"
+	}
 
-    $file = "windows-$arch-filemanager.zip"
-    $url = "https://github.com/hacdias/filemanager/releases/download/$tag/$file"
-    $temp =  New-TemporaryFile
-    $folder = "${env:ProgramFiles}\filemanager"
+	$file = "windows-$arch-filemanager.zip"
+	$url = "https://github.com/hacdias/filemanager/releases/download/$tag/$file"
+	$temp =  New-TemporaryFile
+	$folder = "${env:ProgramFiles}\filemanager"
 
-    Write-Host "Downloading" $url
-        $WebClient = New-Object System.Net.WebClient 
-        $WebClient.DownloadFile( $url, $temp ) 
-    
-    Write-Host "Extracting $temp.zip"
-        Move-Item $temp "$temp.zip"
-        Expand-Archive "$temp.zip" -DestinationPath $temp
+	Write-Host "Downloading" $url
+		$WebClient = New-Object System.Net.WebClient 
+		$WebClient.DownloadFile( $url, $temp ) 
+	
+	Write-Host "Extracting $temp.zip"
+		Move-Item $temp "$temp.zip"
+		Expand-Archive "$temp.zip" -DestinationPath $temp
 
-    Write-Host "Installing filemanager on $folder"
-        If (-not (Test-Path $folder)) {
-            New-Item -ItemType "directory" -Path $folder | Out-Null
-        }
-        if (Test-Path "$folder\filemanager.exe") {
-            Write-Host "Removing the old version"
-            Remove-Item -Force "$folder\filemanager.exe"
-        }
-        Move-Item "$temp\filemanager.exe" "$folder\filemanager.exe"
+	Write-Host "Installing filemanager on $folder"
+		If (-not (Test-Path $folder)) {
+			New-Item -ItemType "directory" -Path $folder | Out-Null
+		}
+		if (Test-Path "$folder\filemanager.exe") {
+			Write-Host "Removing the old version"
+			Remove-Item -Force "$folder\filemanager.exe"
+		}
+		Move-Item "$temp\filemanager.exe" "$folder\filemanager.exe"
 
-    Write-Host "Cleaning temporary files"
-        Remove-Item -Force "$temp.zip"
-        Remove-Item -Force -Recurse "$temp"
+	Write-Host "Cleaning temporary files"
+		Remove-Item -Force "$temp.zip"
+		Remove-Item -Force -Recurse "$temp"
 
-    Write-Host "Adding filemanager to the PATH"
-        if ((Get-Command "pandoc.exe" -ErrorAction SilentlyContinue) -eq $null) { 
-            $path = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).Path
-            $path = $path + ";$folder"
-            Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH –Value $path
-        }
+	Write-Host "Adding filemanager to the PATH"
+		if ((Get-Command "pandoc.exe" -ErrorAction SilentlyContinue) -eq $null) { 
+			$path = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).Path
+			$path = $path + ";$folder"
+			Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH –Value $path
+		}
 
-    Write-Host "filemanager successfully installed!" -ForegroundColor Green 
+	Write-Host "filemanager successfully installed!" -ForegroundColor Green 
 }
 
 Install-FileManager
